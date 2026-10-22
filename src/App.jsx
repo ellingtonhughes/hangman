@@ -7,8 +7,14 @@ import GameResultModal from './game_result'
 import NewGameButton from './NewGameButton'
 import './App.css'
 
+const words = ['REACT', 'FULLSTACK', 'ELLINGTON', 'RACOON', 'COMPUTER']
+function getRandomWord() {
+  return words[Math.floor(Math.random() * words.length)]
+}
+
+
 function App() {
-  const [word, setWord] = useState('REACT')
+  const [word, setWord] = useState(getRandomWord)
   const [guessedLetters, setGuessedLetters] = useState([])
 
 
@@ -20,10 +26,15 @@ function handleGuess(letter) {
     ])
   }
 
-function startNewGame() {
-  setGuessedLetters([])
-}
-
+  function startNewGame() {
+    const otherWords = words.filter(candidate => candidate !== word)
+    const nextWord = otherWords[
+      Math.floor(Math.random() * otherWords.length)
+    ]
+  
+    setWord(nextWord)
+    setGuessedLetters([])
+  }
 
 const maxLives = 6
 const wrongGuesses = guessedLetters.filter(

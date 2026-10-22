@@ -1,16 +1,87 @@
-# React + Vite
+# Hangman 
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+- [Description](#description)
+- [Screenshot] (#screenshot)
+- [Demo](#demo)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Running with Docker](#running-with-docker)
+- [Technologies Used](#technologies-used)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Description
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+A Hangman game built with React and Vite. Players select letter buttons to reveal a hidden word. Each incorrect guess adds a part to the hangman and reduces the remaining lives. The game displays previously guessed letters, shows a win or loss popup, and lets players start another round with a different word.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshot
+![Hangman Demo](docs/hangman-screenshot.png)
+
+---
+
+## Demo
+![Hangman Screenshot](docs/hangman-demo.gif)
+
+---
+
+## Getting Started
+
+### Prerequisites: 
+Ensure these are installed before running!
+Node.js v24, npm, and Git
+
+```bash
+# 1. Fork this repository to your own GitHub account, then clone your fork
+git clone <your-fork-url>
+
+# 2. Move into the project directory
+cd hangman
+
+# 3. Install dependencies needed for the project
+npm install
+
+# 4. Start the development server
+npm run dev
+
+# 5. Open the shown local address(in terminal) in a web browser
+```
+---
+
+## Usage
+
+1. Select a letter to guess whether it appears in the hidden word.
+2. Correct guesses reveal every matching letter.
+3. Incorrect guesses reduce your six lives and advance the hangman image.
+4. Previously guessed letters are displayed and disabled.
+5. Reveal the entire word to win before your lives reach zero.
+6. Select New Game to reset the game and choose a different word.
+
+---
+
+## Running with Docker
+
+Requires [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
+
+```bash
+# Build and start the container
+docker compose up --build
+
+# Stop the container
+docker compose down
+```
+
+The app will be available at `http://localhost:3000`.
+
+---
+## Technologies Used
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Node.js](https://nodejs.org/)
+- [Docker](https://www.docker.com/) 
