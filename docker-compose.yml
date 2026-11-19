@@ -7,4 +7,54 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
+    depends_on:
+      - api
+
+  api:
+    build: ./server
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development
+      DYNAMODB_ENDPOINT: http://dynamodb-local:8000
+    depends_on:
+      dynamodb-init:
+        condition: service_completed_successfully
+      dynamodb-local:
+        condition: service_started
+
+  dynamodb-init:
+    image: amazon/dynamodb-local:latest
+    user: root
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - mkdir -p /home/dynamodblocal/data && chown -R dynamodblocal /home/dynamodblocal/data
+    volumes:
+      - dynamodb-data:/home/dynamodblocal/data
+
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+    working_dir: /home/dynamodblocal
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    volumes:
+      - dynamodb-data:/home/dynamodblocal/data
+    depends_on:
+      dynamodb-init:
+        condition: service_completed_successfully
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "8001:8001"
+    depends_on:
+      - dynamodb-local
+    environment:
+      DYNAMO_ENDPOINT: http://dynamodb-local:8000
+      AWS_REGION: ap-southeast-1
+
+volumes:
+  dynamodb-data:
